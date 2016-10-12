@@ -8,7 +8,7 @@
 <body>
 <div class="logo"></div>
 <?php
-error_reporting(E_ALL); // Выключаем показ ошибок. Чтобы их видеть - вместо 0 поставьте E_ALL
+//error_reporting(E_ALL); // Выключаем показ ошибок. Чтобы их видеть - вместо 0 поставьте E_ALL
 include('db_conn.php');
 $max_file_size = 5;
 if($_POST['update']=='OK') {
