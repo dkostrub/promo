@@ -21,7 +21,7 @@ while($result = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
 $table .= '</table>';
 echo $table;
 
-$query = "SELECT count(*) FROM users";
+$query = "SELECT COUNT(DISTINCT user) FROM users";
 $res = mysqli_query($dbase, $query);
 $row = mysqli_fetch_row($res);
 $total_rows = $row[0];

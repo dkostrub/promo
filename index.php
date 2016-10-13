@@ -99,7 +99,7 @@ else {
 }
 
 if($_POST['del']) {
-    $query = "TRUNCATE `tovari`";
+    $query = "TRUNCATE `users`";
     $row = mysqli_query($dbase, $query);
     die('<div class="info">База почищена! Можно загружать файл.</div>');
 }
