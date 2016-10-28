@@ -1,3 +1,6 @@
+<?php
+require "inc/config.inc.php";
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,61 +45,58 @@
                             <tbody>
 
                             <?php
-
                             echo "<tr><td style='font-size:0;line-height:0;vertical-align: top;'>";
-
-                            include('db_conn.php');
                             $query = "SELECT * FROM goods";
                             $row = mysqli_query($dbase, $query);
 
                             if ($row !== false) {
 
                                 $i = 0;
-                                while($result = mysqli_fetch_array($row, MYSQLI_ASSOC)) {
-                                            echo '<table width="186" cellspacing="0" cellpadding="0" border="0" style="width: 186px">'."\r\n";
-                                                echo "<tbody>"."\r\n";
-                                                echo "<tr>"."\r\n";
-                                                    echo '<td height="260" style="font-size:0;line-height: 0;vertical-align: top; text-align: center">'."\r\n";
-                                                        echo "<a target='_blank' style='outline:none;border:none;' title='${result['nam']}' href='${result['link']}'>"."\r\n";
-                                                            echo "<img width='170' height='260' alt='Увімкніть відображення зображень' src='${result['pic_link']}' style='border: none;outline: none; font-size: 12px;line-height: 14px; color: green;'></a>"."\r\n";
-                                                    echo "</td>"."\r\n";
-                                                echo '</tr>'."\r\n";
-                                                echo '<tr><td style="font-size:0;line-height: 0;vertical-align: top; min-height:7px;"><div style="font-size:0;line-height: 0;min-height:7px">&nbsp;</div><!-- indent --></td></tr>'."\r\n";
-                                                echo "<tr>"."\r\n";
-                                                    echo "<td>"."\r\n";
-                                                        echo '<table width="186" cellspacing="0" cellpadding="0" border="0" style="width: 186px">'."\r\n";
-                                                            echo "<tbody>"."\r\n";
-                                                            echo "<tr>"."\r\n";
-                                                                echo '<td style="line-height:25px; ;vertical-align: top; text-align: center; width: 7px">'."\r\n";
-                                                                echo "</td>"."\r\n";
-                                                                echo '<td style="font-size:13px; line-height:25px; ;vertical-align: top; text-align: center; border:1px dashed #f06421">'."\r\n";
-                                                                    echo "<span style='font-weight: bold; color: #f06421'>${result['code']}</span>"."\r\n";
-                                                                echo "</td>"."\r\n";
-                                                                echo '<td style="line-height:25px; ;vertical-align: top; text-align: center; width: 7px">'."\r\n";
-                                                                echo "</td>"."\r\n";
-                                                            echo "</tr>"."\r\n";
-                                                            echo "</tbody>"."\r\n";
-                                                        echo "</table>"."\r\n";
-                                                    echo "</td>"."\r\n";
-                                                echo "</tr>"."\r\n";
-                                                echo '<tr><td style="font-size:0;line-height: 0;vertical-align: top; min-height:4px;"><div style="font-size:0;line-height: 0;min-height:4px">&nbsp;</div><!-- indent --></td></tr>'."\r\n";
-                                                echo "<tr>"."\r\n";
-                                                    echo '<td style="font-size:0;line-height: 0;vertical-align: top;">'."\r\n";
-                                                        echo '<div style=" font-size:13px; line-height: 16px; text-align: center; ">'."\r\n";
-                                                            echo "<a target='_blank' class='link_underline' style='outline:none;border:none;color:#2e7ec2;text-decoration: none;' title='${result['nam']}' href='${result['link']}'>${result['nam']}</a>"."\r\n";
-                                                        echo "</div>"."\r\n";
-                                                    echo "</td>"."\r\n";
-                                                echo "</tr>"."\r\n";
-                                                echo '<tr><td style="font-size:0;line-height: 0;vertical-align: top; min-height:7px;"><div style="font-size:0;line-height: 0;min-height:7px">&nbsp;</div><!-- indent --></td></tr>'."\r\n";
-                                                echo "<tr>"."\r\n";
-                                                    echo '<td height="38" style="font-size:0;line-height: 0;vertical-align: top; text-align: center;">'."\r\n";
-                                                        echo "<a target='_blank' style='outline:none;border:none;color: #ffffff;' href='${result['link']}'>"."\r\n";
-                                                            echo "<img width='115' height='38' alt='Детальніше' src='images/gdn/more_btn.png' style='line-height:20px;color:#ffffff;background-color: #f16321;font-size:14px;border: none; outline: none; margin: 0;'></a>"."\r\n";
-                                                    echo "</td>"."\r\n";
-                                                echo "</tr>"."\r\n";
-                                                echo '<tr><td style="font-size:0;line-height: 0;vertical-align: top; min-height:36px;"><div style="font-size:0;line-height: 0;min-height:36px">&nbsp;</div><!-- indent --></td></tr>';
-                                                echo "</tbody>"."\r\n";
-                                            echo "</table>"."\r\n";
+                                while($result = mysqli_fetch_assoc($row)) {
+                                    echo '<table width="186" cellspacing="0" cellpadding="0" border="0" style="width: 186px">'."\r\n";
+                                        echo "<tbody>"."\r\n";
+                                        echo "<tr>"."\r\n";
+                                            echo '<td height="260" style="font-size:0;line-height: 0;vertical-align: top; text-align: center">'."\r\n";
+                                                echo "<a target='_blank' style='outline:none;border:none;' title='${result['nam']}' href='${result['link']}'>"."\r\n";
+                                                    echo "<img width='170' height='260' alt='Увімкніть відображення зображень' src='${result['pic_link']}' style='border: none;outline: none; font-size: 12px;line-height: 14px; color: green;'></a>"."\r\n";
+                                            echo "</td>"."\r\n";
+                                        echo '</tr>'."\r\n";
+                                        echo '<tr><td style="font-size:0;line-height: 0;vertical-align: top; min-height:7px;"><div style="font-size:0;line-height: 0;min-height:7px">&nbsp;</div><!-- indent --></td></tr>'."\r\n";
+                                        echo "<tr>"."\r\n";
+                                            echo "<td>"."\r\n";
+                                                echo '<table width="186" cellspacing="0" cellpadding="0" border="0" style="width: 186px">'."\r\n";
+                                                    echo "<tbody>"."\r\n";
+                                                    echo "<tr>"."\r\n";
+                                                        echo '<td style="line-height:25px; ;vertical-align: top; text-align: center; width: 7px">'."\r\n";
+                                                        echo "</td>"."\r\n";
+                                                        echo '<td style="font-size:13px; line-height:25px; ;vertical-align: top; text-align: center; border:1px dashed #f06421">'."\r\n";
+                                                            echo "<span style='font-weight: bold; color: #f06421'>${result['code']}</span>"."\r\n";
+                                                        echo "</td>"."\r\n";
+                                                        echo '<td style="line-height:25px; ;vertical-align: top; text-align: center; width: 7px">'."\r\n";
+                                                        echo "</td>"."\r\n";
+                                                    echo "</tr>"."\r\n";
+                                                    echo "</tbody>"."\r\n";
+                                                echo "</table>"."\r\n";
+                                            echo "</td>"."\r\n";
+                                        echo "</tr>"."\r\n";
+                                        echo '<tr><td style="font-size:0;line-height: 0;vertical-align: top; min-height:4px;"><div style="font-size:0;line-height: 0;min-height:4px">&nbsp;</div><!-- indent --></td></tr>'."\r\n";
+                                        echo "<tr>"."\r\n";
+                                            echo '<td style="font-size:0;line-height: 0;vertical-align: top;">'."\r\n";
+                                                echo '<div style=" font-size:13px; line-height: 16px; text-align: center; ">'."\r\n";
+                                                    echo "<a target='_blank' class='link_underline' style='outline:none;border:none;color:#2e7ec2;text-decoration: none;' title='${result['nam']}' href='${result['link']}'>${result['nam']}</a>"."\r\n";
+                                                echo "</div>"."\r\n";
+                                            echo "</td>"."\r\n";
+                                        echo "</tr>"."\r\n";
+                                        echo '<tr><td style="font-size:0;line-height: 0;vertical-align: top; min-height:7px;"><div style="font-size:0;line-height: 0;min-height:7px">&nbsp;</div><!-- indent --></td></tr>'."\r\n";
+                                        echo "<tr>"."\r\n";
+                                            echo '<td height="38" style="font-size:0;line-height: 0;vertical-align: top; text-align: center;">'."\r\n";
+                                                echo "<a target='_blank' style='outline:none;border:none;color: #ffffff;' href='${result['link']}'>"."\r\n";
+                                                    echo "<img width='115' height='38' alt='Детальніше' src='images/gdn/more_btn.png' style='line-height:20px;color:#ffffff;background-color: #f16321;font-size:14px;border: none; outline: none; margin: 0;'></a>"."\r\n";
+                                            echo "</td>"."\r\n";
+                                        echo "</tr>"."\r\n";
+                                        echo '<tr><td style="font-size:0;line-height: 0;vertical-align: top; min-height:36px;"><div style="font-size:0;line-height: 0;min-height:36px">&nbsp;</div><!-- indent --></td></tr>';
+                                        echo "</tbody>"."\r\n";
+                                    echo "</table>"."\r\n";
 
                                     $i++;
                                     if ( $i%3 == 0 ) {
@@ -116,7 +116,6 @@
                             mysqli_close($dbase);
 
                             ?>
-
                             </tbody>
                         </table>
                     </td>

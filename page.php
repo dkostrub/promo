@@ -1,3 +1,6 @@
+<?php
+require "inc/config.inc.php";
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -20,11 +23,10 @@
        <div style="margin: 0 auto"><img src="images/banner.jpg" alt="banner"/></div>
        <div style="margin: 20px auto -3px"><img src="images/instruction.png" alt="instruction"/></div>
        <?php
-       include('db_conn.php');
        $query = "SELECT * FROM tovari";
        $row = mysqli_query($dbase, $query);
        $i=0;
-       while($result = mysqli_fetch_array($row, MYSQLI_ASSOC)) {
+       while($result = mysqli_fetch_assoc($row)) {
            $i++;
            echo '<div style="height: 466px;width: 331px;border-left: 1px solid #e5e5e5;float:left;border-bottom: 1px solid #e5e5e5;overflow: hidden;background: #ffffff;position: relative;text-align: center;">'."\r\n";
                 echo '<div style="display: table; width: 100%; margin-top: 17px;">'."\r\n";
@@ -69,7 +71,8 @@
        mysqli_free_result($row);
 
        mysqli_close($dbase);
-       ?>        <div style="clear: both"></div>       
+       ?>
+       <div style="clear: both"></div>
 
        <!-- Удалить в HTML перед тем как отдавать -->
        <div style="position: initial;margin-top: 20px"><img src="images/footer.png" alt="footer"/></div>

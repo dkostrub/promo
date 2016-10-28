@@ -1,3 +1,6 @@
+<?php
+require "inc/config.inc.php";
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -21,7 +24,6 @@
             </ul>
         </div>
         <?php
-        include('db_conn.php');
         $query = "SELECT * FROM tovari";
         $row = mysqli_query($dbase, $query);
         while($result = mysqli_fetch_array($row, MYSQLI_ASSOC)) {

@@ -1,5 +1,5 @@
 <?php
-include('db_conn.php');
+require "inc/config.inc.php";
 
 $i=1;
 
