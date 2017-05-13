@@ -38,6 +38,75 @@ function loadImg (){
     }
 }
 
+function loadExcelFile($data, $dbase){
+	require 'Classes/PHPExcel/IOFactory.php';
+
+	$max_file_size = 5;
+	// СТАРТ Загрузка файла на сервер
+	if ($_FILES["filename"]["size"] > $max_file_size * 1024 * 1024) {
+		echo '<div class="info">Размер файла превышает ' . $max_file_size . ' Мб!</div>';
+		include('form_file_load.php');
+		exit;
+	}
+
+	if (copy($_FILES["filename"]["tmp_name"], $path . $data)) {
+		echo("<div class=\"info\">Файл " . "<strong>" . $data . "</strong>" . " успешно загружен!<br></div>");
+		include('form_img_load.php');
+	}else {
+		echo '<div class="info">Ошибка загрузки файла! Возможно открыт файл Excel<br></div>';
+		include('form_file_load.php');
+		exit;
+	}
+
+	$file = $data;
+	$exceldata = array();
+
+	//  Read your Excel workbook
+	try {
+		$fileType = PHPExcel_IOFactory::identify($file);
+		$objReader = PHPExcel_IOFactory::createReader($fileType);
+		$objPHPExcel = $objReader->load($file);
+	}
+	catch(Exception $e) {
+		die('Error loading file "'.pathinfo($file,PATHINFO_BASENAME).'": '.$e->getMessage());
+	}
+
+	//  Get worksheet dimensions
+	$sheet = $objPHPExcel->getSheet(0);
+	$highestRow = $sheet->getHighestRow();
+	$highestColumn = $sheet->getHighestColumn();
+
+	for ($row = 1; $row <= $highestRow; $row++) {
+		//  Read a row of data into an array
+		$rowData = $sheet->rangeToArray('A' . $row . ':' . $highestColumn . $row, NULL, TRUE, FALSE);
+
+		$sql = "INSERT INTO users (user, city)
+			VALUES ('".$rowData[0][0]."', 
+					'".$rowData[0][1]."'
+					)";
+
+		if (mysqli_query($dbase, $sql)) {
+			$exceldata[] = $rowData[0];
+		} else {
+			echo "Error: " . $sql . "<br>" . mysqli_error($dbase);
+		}
+	}
+
+	// Print excel data
+	/*echo "<table>";
+	foreach ($exceldata as $index => $excelraw) {
+		echo "<tr>";
+		foreach ($excelraw as $excelcolumn)
+		{
+			echo "<td>".$excelcolumn."</td>";
+		}
+		echo "</tr>";
+	}
+	echo "</table>";*/
+
+	mysqli_close($dbase);
+}
+
 function clearBd($data){
     global $dbase;
     $query = "TRUNCATE `$data`";

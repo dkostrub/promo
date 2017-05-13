@@ -13,44 +13,9 @@ require "inc/lib.inc.php";
 <body>
 <div class="logo"></div>
 <?php
-//error_reporting(E_ALL); // Выключаем показ ошибок. Чтобы их видеть - вместо 0 поставьте E_ALL
-$max_file_size = 5;
 if($_POST['update']=='OK') {
-    // СТАРТ Загрузка файла на сервер
-    if ($_FILES["filename"]["size"] > $max_file_size * 1024 * 1024) {
-        echo '<div class="info">Размер файла превышает ' . $max_file_size . ' Мб!</div>';
-        include('form_file_load.php');
-        exit;
-    }
-
-    if (copy($_FILES["filename"]["tmp_name"], $path . $_FILES["filename"]["name"])) {
-        echo("<div class=\"info\">Файл " . "<strong>" . $_FILES["filename"]["name"] . "</strong>" . " успешно загружен!<br></div>");
-        include('form_img_load.php');
-        }else {
-        echo '<div class="info">Ошибка загрузки файла! Возможно открыт файл Excel<br></div>';
-        include('form_file_load.php');
-        exit;
-    }
-
-    //СТАРТ Считывание из файла Excel и запись в БД
-    require_once "Excel/reader.php";
-    $data = new Spreadsheet_Excel_Reader();
-    $data->setOutputEncoding("UTF-8"); //Кодировка выходных данных
-    $data->read($_FILES["filename"]["name"]);
-
-    for ($i=1; $i<=$data->sheets[0]["numRows"]; $i++){
-        $cell1 = addslashes(trim($data->sheets[0]["cells"][$i][1]));
-        $cell2 = addslashes(trim($data->sheets[0]["cells"][$i][2]));
-
-        if (trim($cell1) != '') {
-            $query  = "INSERT INTO `users` (`user`,`city`
-                ) VALUES ('$cell1','$cell2')";
-            $row = mysqli_query($dbase, $query);
-            if (!$row) {
-                die('<div class="info">Ошибочка!</div>');
-            }
-        }
-    }
+	$data = $_FILES["filename"]["name"];
+	loadExcelFile($data, $dbase);
 }else {
     include('form_file_load.php');
 }
