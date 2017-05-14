@@ -1,4 +1,6 @@
 .idea/
 vendor/
+images/*.*
+uploads/
 *.xls
 *.sql

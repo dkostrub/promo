@@ -7,7 +7,7 @@ $rows_per_page = 500; // количество записей, выводимых
 if (isset($_GET['page']))
     $page = ($_GET['page'] - 1); else $page = 0; // номер страницы для вычисления значения первой записи
 $from = $page * $rows_per_page;
-$query = "SELECT * FROM users GROUP BY user LIMIT $from, $rows_per_page";
+$query = "SELECT * FROM `users` GROUP BY `user` LIMIT $from, $rows_per_page";
 $res = mysqli_query($dbase, $query);
 
 $table = '<table>';

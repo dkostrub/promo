@@ -1,0 +1,12 @@
+{
+    "name": "nout/promo",
+    "authors": [
+        {
+            "name": "Dmitriy Kostrub",
+            "email": "kostrub@gmail.com"
+        }
+    ],
+    "require": {
+        "tinify/tinify": "*"
+    }
+}
