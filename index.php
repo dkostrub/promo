@@ -16,14 +16,14 @@ require "inc/lib.inc.php";
 		<div class="logo"></div>
 	</header>-->
 
-	<!--<nav>
+	<nav>
 		<ul>
-			<li><a href="#" class="active">Главная</a></li>
-			<li><a href="#">О нас</a></li>
-			<li><a href="#">Контакты</a></li>
-			<li><a href="#">Архивы новостей</a></li>
+			<li><a href="/" class="active">Главная</a></li>
+			<li><a href="users.php">Пользователи</a></li>
+			<li><a href="page.php">Товары</a></li>
+			<li><a href="#">Архивы</a></li>
 		</ul>
-	</nav>-->
+	</nav>
 	<main>
 		<header>
 			<h1 class="text">Что будем делать?</h1>
@@ -98,7 +98,7 @@ require "inc/lib.inc.php";
 
 			if ($_POST['add_pic']) {
 				loadImg();
-				echo '<div class="info"><a href="page.php" class="add">Посмотреть результат</a></div>';
+				echo '<div class="info"><a href="page.php" class="add">Скачать архив</a></div>';
 			}
 
 			if ($_POST['add_pic2']) {
@@ -111,7 +111,7 @@ require "inc/lib.inc.php";
 		</div>
 	</main>
 	<footer>
-		<p>&copy; <?=date('Y')?> ООО &laquo;Рога и копыта&raquo;. Свои права мы держим в надёжном месте.</p>
+		<p class="copyrite">&copy; <?=date('Y')?> ООО &laquo;Рога и копыта&raquo;. Свои права мы держим в надёжном месте.</p>
 	</footer>
 </div>
 

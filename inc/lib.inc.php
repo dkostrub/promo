@@ -2,7 +2,7 @@
 function loadImg (){
 	require_once("vendor/autoload.php");
 
-	\Tinify\setKey("ceMsbO6RJtKhK6Fg-xt2Qv-05pPEq4Fv");
+//	\Tinify\setKey("ceMsbO6RJtKhK6Fg-xt2Qv-05pPEq4Fv");
 
 	if (isset($_POST['add_pic'])) {
 		$supported_image = array('gif', 'jpg', 'jpeg', 'png');
@@ -22,12 +22,33 @@ function loadImg (){
 					move_uploaded_file($_FILES['file']['tmp_name'][$k], getcwd() . '/uploads/' . $image);
 
 					//optimize image using TinyPNG
-					$source = \Tinify\fromFile(getcwd(). '/uploads/'.$image);
-					$source->toFile(getcwd(). '/uploads/'.$image);
+					try {
+						\Tinify\setKey("ceMsbO6RJtKhK6Fg-xt2Qv-05pPEq4Fv");
+						\Tinify\validate();
+						$source = \Tinify\fromFile(getcwd(). '/uploads/'.$image);
+						$source->toFile(getcwd(). '/uploads/'.$image);
 
-					echo "File uploaded successfully";
+					} catch(\Tinify\Exception $e) {
+						echo "<p class='text-info-error'>Validation of API key failed.</p>";
+					}
+
+
+//					catch(\Tinify\AccountException $e) {
+//						print("The error message is: " . $e->getMessage());
+//						// Verify your API key and account limit.
+//					} catch(\Tinify\ClientException $e) {
+//						// Check your source image and request options.
+//					} catch(\Tinify\ServerException $e) {
+//						// Temporary issue with the Tinify API.
+//					} catch(\Tinify\ConnectionException $e) {
+//						// A network connection error occurred.
+//					}
+
+
+					$compressionsThisMonth = (500 - \Tinify\compressionCount());
+					echo "<p class='text-info'>Файл успешно оптимизирован!  Осталось " .$compressionsThisMonth. " загрузок</p>";
 				} else {
-					echo 'Invalid file format';
+					echo "<p class='text-info-error'>Файл не загружен!</p>";
 				}
 			}
 		}
