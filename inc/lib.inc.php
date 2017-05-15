@@ -133,3 +133,38 @@ function clearBd($data){
     mysqli_query($dbase, $query);
     die('<div class="info">База почищена! Можно загружать файл.</div>');
 }
+
+function createZip(){
+	if(isset($_GET['createzip'])) {
+
+		if (!file_exists(getcwd() . '/uploads')) {
+			mkdir(getcwd() . '/uploads', 0777);
+		}
+
+		$src_dir = 'uploads/';
+		$dir = array_diff(scandir($src_dir), array('..', '.'));
+
+		$zip = new ZipArchive;
+		$fileName = time().".zip";
+
+		if($zip->open($fileName, ZipArchive::CREATE) !== TRUE){
+			echo 'failed';
+		}
+
+		foreach ($dir as $file){
+			$zip->addFile($src_dir.$file);
+		}
+		$zip->close();
+
+		if(file_exists($fileName)){
+			// push to download the zip
+			header('Content-type: application/zip');
+			header('Content-Disposition: attachment; filename="'.$fileName.'"');
+			readfile($fileName);
+			// remove zip file is exists in temp path
+			unlink($fileName);
+		}
+		ob_end_flush();
+		exit(0);
+	}
+}
